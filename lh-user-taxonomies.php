@@ -156,8 +156,9 @@ class LH_User_Taxonomies_plugin {
 	 */
 	public function set_user_column_values($display, $column, $term_id) {
 		if('users' === $column) {
-			$term	= get_term($term_id, $_REQUEST['taxonomy']);
-			echo $term->count;
+			$term = get_term($term_id, $_REQUEST['taxonomy']);
+			$href = add_query_arg([$term->taxonomy => $term->slug], admin_url('users.php'));
+   			echo sprintf('<a href="%s" title="View %s users">%s</a>', $href, esc_attr($term->description), $term->count);
 		}
 	}
 	private function buildTree( array &$elements, $parentId = 0 ) {
